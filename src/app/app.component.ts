@@ -22,6 +22,8 @@ export class AppComponent {
           iframe.style.display = 'none';
           iframe.src = blobUrl;
           document.body.appendChild(iframe);
+          iframe.contentWindow.onafterprint = () => {console.info("onafterprint")};
+          iframe.contentWindow.onbeforeprint = () => {console.info("onbeforeprint")};
           iframe.contentWindow.print();
         },
         error => {
