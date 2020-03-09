@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { InvoiceService } from "./invoice.service";
+import { convertBlobToBase64 } from "./blob-to-base64-util";
 
 @Component({
   selector: 'app-root',
@@ -16,30 +17,12 @@ export class AppComponent {
     this.invoiceService.getDownloadFileInvoiceById(951)
       .subscribe(
         value => {
-
-          // const blobUrl = window.URL.createObjectURL((value.body));
-          // const iframe = document.createElement('iframe');
-          // iframe.style.display = 'none';
-          // iframe.src = blobUrl;
-          // document.body.appendChild(iframe);
-          // iframe.contentWindow.print();
-
-          // const fl = URL.createObjectURL(value.body);
-          // window.open(fl).print();
-
-          this.pdfViewer.pdfSrc = value.body;
-          // this.winRef.open(this.pdfViewer).print();
-          this.pdfViewer.refresh();
-          const iframeDoc = document.getElementsByTagName("iframe")[0].contentWindow;
-          setTimeout(() => {
-            iframeDoc.print();
-          }, 1000);
-
-          // window.open(this.pdfViewer.pdfSrc).print();
-
-          // this.pdfViewer.refresh().then(value1 => {
-          //   console.info(value1);
-          // });
+          const blobUrl = window.URL.createObjectURL(new Blob ([value.body], { type: "application/pdf" }));
+          const iframe = document.createElement('iframe');
+          iframe.style.display = 'none';
+          iframe.src = blobUrl;
+          document.body.appendChild(iframe);
+          iframe.contentWindow.print();
         },
         error => {
           console.error(error);

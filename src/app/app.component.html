@@ -28,7 +28,7 @@
 
   <button mat-raised-button (click)="onPrint()">Print</button>
 
-  <ng2-pdfjs-viewer #pdfViewer [externalWindow]="false" style="width: 100%; height: 800px; display: none" (onAfterPrint)="onAfterPrint()"></ng2-pdfjs-viewer>
+  <ng2-pdfjs-viewer #pdfViewer [externalWindow]="false" (onAfterPrint)="onAfterPrint()"></ng2-pdfjs-viewer>
 </div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
